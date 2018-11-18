@@ -50,8 +50,9 @@
 .idea/modules.xml
 # .idea/*.iml
 .idea/modules
-.idea/Interpreter.iml
+.idea/Sima.iml
 .idea/vcs.xml
+.idea/Interpreter.iml
 
 # CMake
 cmake-build-*/

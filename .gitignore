@@ -49,7 +49,9 @@
 # auto-import.
 # .idea/modules.xml
 # .idea/*.iml
-# .idea/modules
+.idea/modules
+.idea/Interpreter.iml
+.idea/vcs.xml
 
 # CMake
 cmake-build-*/

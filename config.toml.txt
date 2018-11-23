@@ -1,0 +1,22 @@
+# This is a TOML document.
+# GitHub repo https://github.com/toml-lang/toml
+
+# Database connections
+[Database]
+
+[Database.MySQL]
+User = ""
+Password = ""
+DatabaseName = ""
+
+[Database.Redis]
+Addr = "localhost:6379"
+Password =  "" # no password set
+DB =  0  # use default DB
+
+
+# Services and extensions
+[Services]
+
+[Services.NLP]
+Server = "http://127.0.0.1:5000"

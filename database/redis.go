@@ -3,6 +3,7 @@ package database
 
 import (
   "github.com/go-redis/redis"
+	"Sima/config"
 )
 
 
@@ -12,10 +13,12 @@ var client *redis.Client
 
 
 func NewRedisConnect() {
+	params := config.Conf.Database.Redis
+
 	client = redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // no password set
-		DB:       0,  // use default DB
+		Addr:     params.Addr,
+		Password: params.Password, // no password set
+		DB:       params.DB,  // use default DB
 	})
 	_, err := client.Ping().Result()
 	if err != nil {

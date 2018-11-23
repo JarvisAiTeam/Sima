@@ -8,12 +8,19 @@ import (
 	"Sima/train"
 	"os"
 	"Sima/tokens"
+	"Sima/config"
+	"fmt"
 )
 
  var myscanner *bufio.Scanner
 
 func InitAll()  {
+	config.InitConfig()
+
+	fmt.Println(config.Conf)
+
 	database.Connect()
+
 	database.NewRedisConnect()
 }
 

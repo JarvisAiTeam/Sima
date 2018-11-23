@@ -6,6 +6,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"fmt"
 	"log"
+	"Sima/config"
 )
 
 
@@ -17,7 +18,9 @@ var db *sql.DB
 
 func params() string {
 
-	info := fmt.Sprintf("Nick01:password@/Words_info_bd")
+	params := config.Conf.Database.MySQL
+
+	info := fmt.Sprintf(params.User+":"+params.Password+"@/"+params.DatabaseName)
 	return info
 }
 

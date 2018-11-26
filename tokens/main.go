@@ -79,14 +79,24 @@ func (text *Text) toSentences() {
 
 	sent_arr := strings.Split(text.Input, text.Rules.Punctuation["dot"])
 
-	wg.Add(len(sent_arr))
+	wg.Add(len(sent_arr)*2)
 
 	sentences := make(sentence.Sentences,len(sent_arr))
 
 	for i,s := range sent_arr  {
 		sentences[i] = *sentence.NewSentence(s)
 		sentences[i].Prepare(text.Rules.Punctuation)
-		go sentences[i].ToSpeechParts()
+
+		go func() {
+			defer wg.Done()
+			sentences[i].ToSpeechParts()
+			}()
+
+		go func() {
+			defer wg.Done()
+			sentences[i].ToLanguageParts()
+		}()
 	}
+	wg.Wait()
 	text.Sentences = sentences
 }

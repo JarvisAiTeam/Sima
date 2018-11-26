@@ -14,14 +14,15 @@ import (
 
  var myscanner *bufio.Scanner
 
-func InitAll()  {
-	config.InitConfig()
+ var Config config.Config
 
-	fmt.Println(config.Conf)
+func InitAll()  {
+	Config = config.InitConfig()
 
 	database.Connect()
 
 	database.NewRedisConnect()
+
 }
 
 
@@ -58,6 +59,7 @@ func main() {
 
 
 
+	fmt.Println(Text.Sentences)
 	time.Sleep(2000 * time.Second) // windows console window pause
 
 }

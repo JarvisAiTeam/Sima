@@ -29,21 +29,28 @@ type Redis struct {
 
 type Services struct {
 	NLP NLP
+	Dialogflow Dialogflow
 }
 
 type NLP struct {
 	Server string
 }
 
+type Dialogflow struct {
+	Token string
+}
+
 
 
 var Conf Config
 
-func InitConfig() {
+
+func InitConfig() Config{
 	if _, err := toml.DecodeFile("./config.toml", &Conf); err != nil {
 		// handle error
 		panic(err)
 	}
+	return Conf
 }
 
 

@@ -26,13 +26,15 @@ import (
 	"encoding/json"
 	"net/url"
 	"Sima/config"
+	"Sima/dialogflow"
 )
 
-var pythonNlpServer = config.Conf.Services.NLP.Server
+var PythonNlpServer string
 
 
 type Sentence struct {
 	Value     string
+	Entities   map[string]interface{}
 }
 
 
@@ -54,6 +56,8 @@ func (S *Sentence) Prepare(marks map[string]string) {
 
 func (S *Sentence) ToSpeechParts() {
 
+	PythonNlpServer = config.Conf.Services.NLP.Server
+
 	type Result struct {
 		Result [][2]string `json:"result"`
 	}
@@ -65,7 +69,10 @@ func (S *Sentence) ToSpeechParts() {
 
 
 	client := &http.Client{}
-	r, _ := http.NewRequest("POST", pythonNlpServer+"/recognition/speech_part", strings.NewReader(data.Encode())) // URL-encoded payload
+
+	nlp_url := PythonNlpServer+"recognition/speech_part"
+
+	r, _ := http.NewRequest("POST", nlp_url, strings.NewReader(data.Encode())) // URL-encoded payload
 	r.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
 	resp, err := client.Do(r)
@@ -78,4 +85,8 @@ func (S *Sentence) ToSpeechParts() {
 }
 
 
+
+func (S *Sentence) ToLanguageParts() {
+	S.Entities = dialogflow.DetectIntentText(S.Value).Parameters
+}
 

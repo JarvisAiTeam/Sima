@@ -20,3 +20,8 @@ DB =  0  # use default DB
 
 [Services.NLP]
 Server = "http://127.0.0.1:5000"
+
+[Services.Dialogflow]
+Token = "" # Client access token V1
+
+
